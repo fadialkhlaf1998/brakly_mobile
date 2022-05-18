@@ -22,6 +22,16 @@ class HomeController extends GetxController {
   RxList<Post> products = <Post>[].obs;
   Rx<Post>? productInfo;
 
+  List<Post> banner = <Post>[];
+  List<Post> service = <Post>[];
+  List<Post> product = <Post>[];
+  List<Post> brands = <Post>[];
+  List<Post> category = <Post>[];
+  Post? aboutHomePage ;
+
+
+
+
   doFunction(int op, int id, BuildContext context) {
     switch (op) {
       case 0:

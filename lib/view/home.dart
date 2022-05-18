@@ -1,4 +1,10 @@
+import 'dart:ui';
+
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bounce/flutter_bounce.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:brakly_mobile/app_localization.dart';
 import 'package:brakly_mobile/controller/cart_contoller.dart';
@@ -31,42 +37,286 @@ class Home extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text("Home"),
+        title: Text("FREE PET PICK UP - BOOK TODAY", style: TextStyle(fontSize: 15),),
+        backgroundColor: Colors.black,
         centerTitle: true,
       ),
       bottomNavigationBar: App.bottomNavBar(
           context, homeController, cartController.cart.value.length),
       body: SafeArea(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          color: Colors.white,
-          child: Stack(
-            children: [
-              SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Grid_horizantel(count:1,ratio:0.6666666666666666,posts:homeController.main_posts[0],height:MediaQuery.of(context).size.height*0.22,radius:null,circle:false,background: Color(0xffffffff),shadow: false,img_radius: null,op: 1),SizedBox(height: 5,),
-                  ],
-                ),
-              ),
-              homeController.loading.value
-                  ? Positioned(
-                      child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height,
-                      color: App.primery.withOpacity(0.5),
-                      child: Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    ))
-                  : Center()
-            ],
+        child: SingleChildScrollView(
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+              children: [
+                const SizedBox(height: 25),
+                _header(context),
+                const SizedBox(height: 25),
+                _slider(context),
+                const SizedBox(height: 50),
+                _services(context),
+                const SizedBox(height: 40),
+                _aboutInfoPage(context),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
+
+  _header(context){
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.9,
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width / 6,
+                height: MediaQuery.of(context).size.width / 6,
+                color: Colors.white,
+                child: Image.asset('assets/logo.png', fit: BoxFit.fill,),
+              ),
+              Bounce(
+                onPressed: (){
+
+                },
+                duration: Duration(milliseconds: 90),
+                child: Container(
+                  width: MediaQuery.of(context).size.width / 2.5,
+                  height: 50,
+                  decoration: BoxDecoration(
+                      color: App.primery,
+                      borderRadius: BorderRadius.circular(20)
+                  ),
+                  child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Icon(Icons.phone, color: Colors.white),
+                        SizedBox(width: 5),
+                        Text('Book now', style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold,color: Colors.white),)
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: (){
+
+                },
+                child: Icon(Icons.menu,size: 35,),
+              ),
+            ],
+          ),
+          const SizedBox(height: 25),
+          Container(
+            height: 65,
+            child: Row(
+              children: [
+                 const Flexible(
+                  flex: 3,
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Search...',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(30),
+                          bottomLeft: Radius.circular(30)
+                        )
+                      )
+                    ),
+                  ),
+                ),
+                Flexible(
+                  flex: 1,
+                  child: Container(
+                    height: 60,
+                    decoration: BoxDecoration(
+                      color: App.primery,
+                      borderRadius: const BorderRadius.only(
+                        bottomRight: Radius.circular(40),
+                        topRight:  Radius.circular(40),
+                      )
+                  ),
+                    child: Center(
+                      child: Icon(Icons.search,color: Colors.white,size: 30),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  _slider(context){
+    return Container(
+      color: Colors.red,
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height * 0.35,
+      child: CarouselSlider(
+        options: CarouselOptions(
+          viewportFraction: 1,
+          height: MediaQuery.of(context).size.height * 0.35,
+          initialPage: 0,
+          enableInfiniteScroll: false,
+          reverse: false,
+          autoPlay: true,
+          autoPlayInterval: Duration(seconds: 5),
+          autoPlayAnimationDuration: Duration(milliseconds: 800),
+          autoPlayCurve: Curves.fastOutSlowIn,
+          enlargeCenterPage: false,
+          scrollDirection: Axis.horizontal,
+        ),
+        items: homeController.banner.map((i){
+          return Builder(
+            builder: (BuildContext context){
+              return Stack(
+                alignment: Alignment.centerLeft,
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * 0.35,
+                    child: Image.network(i.image ?? "", fit: BoxFit.cover,),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 30),
+                    width: MediaQuery.of(context).size.width * 0.5,
+                    child: Text(
+                      i.title ?? "",
+                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 25),
+                    ),
+                  ),
+                ],
+              );
+            },
+          );
+        }).toList(),
+      ),
+    );
+  }
+
+  _services(context){
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      child: GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 0,
+          mainAxisSpacing: 5,
+          childAspectRatio: 0.8,
+        ),
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: homeController.service.length,
+        itemBuilder: (context,index){
+          return Stack(
+            alignment: Alignment.center,
+            children: [
+              Container(
+                // width: MediaQuery.of(context).size.width * 0.5,
+                child: Image.network(homeController.service[index].image ?? "",fit: BoxFit.cover,),
+              ),
+              Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      homeController.service[index].title ?? "",
+                      maxLines: 2,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold,color: Colors.white),
+                    ),
+                    SizedBox(height: 20,),
+                    Container(
+                      width: 150,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: App.primery,
+                        borderRadius: BorderRadius.circular(40)
+                      ),
+                      child: const Center(
+                        child: Text('Book now',style: TextStyle(color: Colors.white, fontSize: 18,),),
+                      ),
+                    ),
+                    SizedBox(height: 30,),
+                  ],
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+  _aboutInfoPage(context){
+    return Column(
+      children: [
+        Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height * 0.18,
+          color: App.primery,
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: Center(
+            child: Text(
+              homeController.aboutHomePage!.subTitle.toString(),
+              textAlign: TextAlign.left,
+              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ),
+        Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height * 0.3,
+          child: Image.network(homeController.aboutHomePage!.image ?? "", fit: BoxFit.cover,),
+        ),
+        Container(
+          width: MediaQuery.of(context).size.width,
+          padding: EdgeInsets.symmetric(horizontal: 30,vertical: 40),
+          child: Center(
+            child: Text(
+              homeController.aboutHomePage!.stringDescription.toString(),
+              textAlign: TextAlign.justify,
+              style: TextStyle(fontSize: 18),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+
+
+  // Stack(
+  // children: [
+  // SingleChildScrollView(
+  // child: Column(
+  // children: [
+  // Grid_horizantel(count:1,ratio:0.6666666666666666,posts:homeController.main_posts[0],height:MediaQuery.of(context).size.height*0.22,radius:null,circle:false,background: Color(0xffffffff),shadow: false,img_radius: null,op: 1),SizedBox(height: 5,),
+  // ],
+  // ),
+  // ),
+  // homeController.loading.value
+  // ? Positioned(
+  // child: Container(
+  // width: MediaQuery.of(context).size.width,
+  // height: MediaQuery.of(context).size.height,
+  // color: App.primery.withOpacity(0.5),
+  // child: Center(
+  // child: CircularProgressIndicator(),
+  // ),
+  // ))
+  //     : Center()
+  // ],
+  // ),
 
   Grid_horizantel(
       {required int count,

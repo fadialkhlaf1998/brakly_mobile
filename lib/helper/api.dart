@@ -12,7 +12,7 @@ import 'package:brakly_mobile/model/post_type.dart';
 import 'package:brakly_mobile/model/address.dart';
 
 class API {
-  static String url = "http://10.0.2.2:3000";
+  static String url = "https://phpstack-548447-2508399.cloudwaysapps.com/";
   static String media_url = url + "/uploads/";
   static List<int> main_parents = [26];
   static int product = 27;

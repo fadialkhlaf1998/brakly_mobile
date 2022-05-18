@@ -8,8 +8,12 @@ import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class App {
-  static Color primery = Color(0xff2196f3);
+  static Color primery = Color(0xfffc7012);
   static Color secondry = Color(0xffffffff);
+  static Color grey = Color(0xfff5f5f5);
+  static Color green = Color(0xffa0c769);
+  static Color lightOrang = Color(0xffFFB380);
+  static Color auto = Colors.black.withOpacity(0.75);
   static BoxShadow boxShadow = BoxShadow(
       color: Colors.grey.withOpacity(0.9),
       spreadRadius: 0.1,

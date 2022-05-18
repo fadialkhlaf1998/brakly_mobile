@@ -57,6 +57,8 @@ class Home extends StatelessWidget {
                 _services(context),
                 const SizedBox(height: 40),
                 _aboutInfoPage(context),
+                _product(context),
+                _brands(context)
               ],
             ),
           ),
@@ -291,6 +293,167 @@ class Home extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  _product(context){
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      color: App.grey,
+      child: Column(
+        children: [
+          SizedBox(height: 20),
+          Text(
+              'OUR PET\'S CHOICE',
+            style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold,color: App.primery),
+          ),
+          SizedBox(height: 40),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: homeController.product.length,
+            itemBuilder: (context, index){
+              return Container(
+                margin: EdgeInsets.only(bottom: 30),
+                width: MediaQuery.of(context).size.width,
+                // height: MediaQuery.of(context).size.height * 0.3,
+                color: Colors.transparent,
+                child: Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.all(5),
+                      color: Colors.transparent,
+                      width: MediaQuery.of(context).size.width * 0.6,
+                      height: MediaQuery.of(context).size.width * 0.6,
+                      child: Image.network(homeController.product[index].image ?? "",fit: BoxFit.contain,),
+                    ),
+                    Text(
+                        homeController.product[index].title.toString(),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold),
+                    ),
+                    Divider(indent: 170,endIndent: 170,thickness: 1,color: Colors.black.withOpacity(0.5),),
+                    Text(
+                      homeController.product[index].price.toString() + ' AED',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 10),
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black)
+                      ),
+                      width: MediaQuery.of(context).size.width * 0.6,
+                      height: 50,
+                      child: Row(
+                        children: [
+                          Flexible(
+                            flex: 1,
+                            child: GestureDetector(
+                              child: Container(
+                                color: Colors.transparent,
+                                child: Center(
+                                  child: Icon(Icons.remove),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Flexible(
+                            flex: 3,
+                            child: Container(
+                              color: Colors.transparent,
+                              child: Center(
+                                child: Text('1', ),
+                              ),
+                            ),
+                          ),
+                          Flexible(
+                            flex: 1,
+                            child: GestureDetector(
+                              child: Container(
+                                color: Colors.transparent,
+                                child: Center(
+                                  child: Icon(Icons.add),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+
+                    ),
+                    SizedBox(height: 10),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.6,
+                      height: 50,
+                      color: Colors.black,
+                      child: Center(
+                        child: Text('Add to cart', style: TextStyle(color: Colors.white,fontSize: 17),),
+                      ),
+                    )
+                  ],
+                ),
+              );
+            },
+          ),
+          SizedBox(height: 40),
+          Container(
+            width: MediaQuery.of(context).size.width * 0.4,
+            height: 55,
+            decoration: BoxDecoration(
+              color: App.primery,
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: Center(
+              child: Text('All items',style: TextStyle(color: Colors.white, fontSize: 17),),
+            ),
+          ),
+          SizedBox(height: 40),
+        ],
+      ),
+    );
+  }
+
+  _brands(context){
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      color: App.grey,
+      child: Column(
+        children: [
+          const SizedBox(height: 30),
+          Container(
+            width: MediaQuery.of(context).size.width * 0.6,
+            child: Text(
+                'BEST BRANDS AT LOWEST PRICES',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: App.primery, fontSize: 25,fontWeight: FontWeight.bold),
+            ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width * 0.9,
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                childAspectRatio: 0.8,
+              ),
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: homeController.brands.length,
+              itemBuilder: (context, index){
+                return Container(
+                  child: Image.network(homeController.brands[index].image ?? "",fit: BoxFit.contain,),
+                );
+              },
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  _footer(context){
+
   }
 
 

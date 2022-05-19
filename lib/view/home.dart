@@ -35,12 +35,13 @@ class Home extends StatelessWidget {
 
   home(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text("FREE PET PICK UP - BOOK TODAY", style: TextStyle(fontSize: 15),),
-        backgroundColor: Colors.black,
-        centerTitle: true,
-      ),
+      // appBar: AppBar(
+      //   automaticallyImplyLeading: false,
+      //   title: Text("FREE PET PICK UP - BOOK TODAY", style: TextStyle(fontSize: 15),),
+      //   backgroundColor: Colors.black,
+      //   centerTitle: true,
+      // ),
+      endDrawer: _drawer(),
       bottomNavigationBar: App.bottomNavBar(
           context, homeController, cartController.cart.value.length),
       body: SafeArea(
@@ -58,7 +59,9 @@ class Home extends StatelessWidget {
                 const SizedBox(height: 40),
                 _aboutInfoPage(context),
                 _product(context),
-                _brands(context)
+                _brands(context),
+                _footer(context),
+                _footer1(context)
               ],
             ),
           ),
@@ -66,6 +69,8 @@ class Home extends StatelessWidget {
       ),
     );
   }
+
+
 
   _header(context){
     return Container(
@@ -106,12 +111,20 @@ class Home extends StatelessWidget {
                   ),
                 ),
               ),
-              GestureDetector(
-                onTap: (){
-
-                },
-                child: Icon(Icons.menu,size: 35,),
+              Builder(
+                builder: (context)=>Center(
+                  child: GestureDetector(
+                    onTap: () =>  Scaffold.of(context).openEndDrawer(),
+                    child: const Icon(Icons.menu,size: 35,),
+                  ),
+                ),
               ),
+              // GestureDetector(
+              //   onTap: (){
+              //     Scaffold.of(context).openDrawer();
+              //   },
+              //   child: Icon(Icons.menu,size: 35,),
+              // ),
             ],
           ),
           const SizedBox(height: 25),
@@ -159,7 +172,6 @@ class Home extends StatelessWidget {
 
   _slider(context){
     return Container(
-      color: Colors.red,
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * 0.35,
       child: CarouselSlider(
@@ -429,7 +441,7 @@ class Home extends StatelessWidget {
             ),
           ),
           Container(
-            width: MediaQuery.of(context).size.width * 0.9,
+            width: MediaQuery.of(context).size.width * 0.8,
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
@@ -453,9 +465,109 @@ class Home extends StatelessWidget {
   }
 
   _footer(context){
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      color: App.green,
+      child: Column(
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width * 0.8,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 10),
+                  child: Text(
+                      'The Barkley Pet Camp',
+                    style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 10),
+                  child: Text(
+                      'Info',
+                    style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.symmetric(vertical: 10),
+                  child: const Text(
+                      'Get Special Deals & Offers',
+                    style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.symmetric(vertical: 10),
+            width: MediaQuery.of(context).size.width * 0.8,
+            height: 50,
+            child: const TextField(
+              decoration: InputDecoration(
+                hintText: 'Email Address'
+              ),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 10),
+            width: MediaQuery.of(context).size.width * 0.8,
+            height: 50,
+            color: Colors.white,
+            child: Center(
+              child: Text('Become Our Friend!',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+            ),
+          ),
 
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 10),
+            width: MediaQuery.of(context).size.width * 0.8,
+            height: 50,
+            color: Colors.black,
+            child: Center(
+              child: Text('Subscribe',style: TextStyle(color: Colors.white, fontSize: 18),),
+            ),
+          ),
+
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 20),
+            width: MediaQuery.of(context).size.width * 0.4,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SvgPicture.asset('assets/face.svg'),
+                SvgPicture.asset('assets/insta.svg'),
+                SvgPicture.asset('assets/teitter.svg'),
+                SvgPicture.asset('assets/in.svg'),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
   }
 
+  _footer1(context){
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 20),
+      width: MediaQuery.of(context).size.width * 0.6,
+      child: Center(
+        child: Text('©2022 by The Barkley Pet Camp',style: TextStyle(fontSize: 13),),
+      ),
+    );
+  }
+
+
+  _drawer(){
+    return Drawer(
+
+      child: ListView(
+        children: [
+
+        ],
+      ),
+    );
+  }
 
 
   // Stack(

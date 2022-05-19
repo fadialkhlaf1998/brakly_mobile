@@ -41,7 +41,7 @@ class Home extends StatelessWidget {
       //   backgroundColor: Colors.black,
       //   centerTitle: true,
       // ),
-      endDrawer: _drawer(),
+      endDrawer: _drawer(context),
       bottomNavigationBar: App.bottomNavBar(
           context, homeController, cartController.cart.value.length),
       body: SafeArea(
@@ -558,12 +558,42 @@ class Home extends StatelessWidget {
   }
 
 
-  _drawer(){
+  _drawer(context){
     return Drawer(
-
       child: ListView(
         children: [
-
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: 50,
+            color: Colors.transparent,
+            child: Center(
+              child: Text('HOME'),
+            ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: 50,
+            color: Colors.transparent,
+            child: Center(
+              child: Text('ABOUT'),
+            ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: 50,
+            color: Colors.transparent,
+            child: Center(
+              child: Text('GALLERY'),
+            ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: 50,
+            color: Colors.transparent,
+            child: Center(
+              child: Text('CONTACT'),
+            ),
+          ),
         ],
       ),
     );

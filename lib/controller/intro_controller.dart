@@ -20,7 +20,9 @@ class IntroController extends GetxController {
   List<Post> product = <Post>[];
   List<Post> brands = <Post>[];
   List<Post> category = <Post>[];
-  Post? aboutHomePage ;
+  List<Post> gallery = <Post>[];
+  Post? aboutHomePage;
+  Post? aboutMainPage;
 
   WishListController wishListController = Get.put(WishListController());
 
@@ -54,13 +56,17 @@ class IntroController extends GetxController {
           service = await API.getPostByPostType(28);
           product = await API.getPostByPostType(27);
           category = await API.getPostByPostType(26);
+          gallery = await API.getPostByPostType(33);
           aboutHomePage = await API.getPostInfo(83);
+          aboutMainPage = await API.getPostInfo(84);
           homeController.banner = banner;
           homeController.service = service;
           homeController.product = product;
           homeController.brands = brands;
           homeController.category = category;
+          homeController.gallery = gallery;
           homeController.aboutHomePage = aboutHomePage;
+          homeController.aboutMainPage = aboutMainPage;
           API.address = await Store.loadAddress();
           cartController.cart.value = await Store.loadCart();
           cartController.saveCart();

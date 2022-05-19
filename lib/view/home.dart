@@ -1,5 +1,9 @@
 import 'dart:ui';
 
+import 'package:brakly_mobile/view/about.dart';
+import 'package:brakly_mobile/view/contact.dart';
+import 'package:brakly_mobile/view/gallery.dart';
+import 'package:brakly_mobile/view/shop.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +39,26 @@ class Home extends StatelessWidget {
 
   home(BuildContext context) {
     return Scaffold(
+      persistentFooterButtons: [
+        GestureDetector(
+          onTap: (){
+
+          },
+          child: Container(
+            color: Colors.transparent,
+            width: MediaQuery.of(context).size.width,
+            height: 50,
+            child: Center(
+                child: Column(
+                  children: const [
+                    Icon(Icons.chat,size: 30),
+                    Text('Chat'),
+                  ],
+                )
+            ),
+          ),
+        ),
+      ],
       // appBar: AppBar(
       //   automaticallyImplyLeading: false,
       //   title: Text("FREE PET PICK UP - BOOK TODAY", style: TextStyle(fontSize: 15),),
@@ -42,8 +66,8 @@ class Home extends StatelessWidget {
       //   centerTitle: true,
       // ),
       endDrawer: _drawer(context),
-      bottomNavigationBar: App.bottomNavBar(
-          context, homeController, cartController.cart.value.length),
+      // bottomNavigationBar: App.bottomNavBar(
+      //     context, homeController, cartController.cart.value.length),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
@@ -70,8 +94,6 @@ class Home extends StatelessWidget {
     );
   }
 
-
-
   _header(context){
     return Container(
       width: MediaQuery.of(context).size.width * 0.9,
@@ -81,11 +103,16 @@ class Home extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                width: MediaQuery.of(context).size.width / 6,
-                height: MediaQuery.of(context).size.width / 6,
-                color: Colors.white,
-                child: Image.asset('assets/logo.png', fit: BoxFit.fill,),
+              GestureDetector(
+                onTap: (){
+
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width / 6,
+                  height: MediaQuery.of(context).size.width / 6,
+                  color: Colors.white,
+                  child: Image.asset('assets/logo.png', fit: BoxFit.fill,),
+                ),
               ),
               Bounce(
                 onPressed: (){
@@ -250,8 +277,8 @@ class Home extends StatelessWidget {
                     ),
                     SizedBox(height: 20,),
                     Container(
-                      width: 150,
-                      height: 50,
+                      width: 130,
+                      height: 40,
                       decoration: BoxDecoration(
                         color: App.primery,
                         borderRadius: BorderRadius.circular(40)
@@ -313,16 +340,15 @@ class Home extends StatelessWidget {
       color: App.grey,
       child: Column(
         children: [
-          SizedBox(height: 20),
+           SizedBox(height: 20),
           Text(
               'OUR PET\'S CHOICE',
-            style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold,color: App.primery),
+            style: TextStyle(fontSize: 26,fontWeight: FontWeight.bold,color: App.primery),
           ),
-          SizedBox(height: 40),
           ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: homeController.product.length,
+            itemCount: 5,
             itemBuilder: (context, index){
               return Container(
                 margin: EdgeInsets.only(bottom: 30),
@@ -407,19 +433,24 @@ class Home extends StatelessWidget {
               );
             },
           ),
-          SizedBox(height: 40),
-          Container(
-            width: MediaQuery.of(context).size.width * 0.4,
-            height: 55,
-            decoration: BoxDecoration(
-              color: App.primery,
-              borderRadius: BorderRadius.circular(30),
-            ),
-            child: Center(
-              child: Text('All items',style: TextStyle(color: Colors.white, fontSize: 17),),
+          SizedBox(height: 10),
+          GestureDetector(
+            onTap: (){
+              Get.to(()=>Shop());
+            },
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.4,
+              height: 55,
+              decoration: BoxDecoration(
+                color: App.primery,
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Center(
+                child: Text('All items',style: TextStyle(color: Colors.white, fontSize: 18),),
+              ),
             ),
           ),
-          SizedBox(height: 40),
+          SizedBox(height: 30),
         ],
       ),
     );
@@ -464,98 +495,98 @@ class Home extends StatelessWidget {
     );
   }
 
-  _footer(context){
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      color: App.green,
-      child: Column(
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width * 0.8,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 10),
-                  child: Text(
-                      'The Barkley Pet Camp',
-                    style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
+    _footer(context){
+      return Container(
+        width: MediaQuery.of(context).size.width,
+        color: App.green,
+        child: Column(
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width * 0.8,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(bottom: 10, top: 30),
+                    child: Text(
+                        'The Barkley Pet Camp',
+                      style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
+                    ),
                   ),
-                ),
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 10),
-                  child: Text(
-                      'Info',
-                    style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 10),
+                    child: Text(
+                        'Info',
+                      style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
+                    ),
                   ),
-                ),
-                Container(
-                  margin: const EdgeInsets.symmetric(vertical: 10),
-                  child: const Text(
-                      'Get Special Deals & Offers',
-                    style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
+                  Container(
+                    margin: const EdgeInsets.symmetric(vertical: 10),
+                    child: const Text(
+                        'Get Special Deals & Offers',
+                      style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: 10),
-            width: MediaQuery.of(context).size.width * 0.8,
-            height: 50,
-            child: const TextField(
-              decoration: InputDecoration(
-                hintText: 'Email Address'
+                ],
               ),
             ),
-          ),
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 10),
-            width: MediaQuery.of(context).size.width * 0.8,
-            height: 50,
-            color: Colors.white,
-            child: Center(
-              child: Text('Become Our Friend!',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 10),
+              width: MediaQuery.of(context).size.width * 0.8,
+              height: 50,
+              child: const TextField(
+                decoration: InputDecoration(
+                  hintText: 'Email Address'
+                ),
+              ),
             ),
-          ),
-
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 10),
-            width: MediaQuery.of(context).size.width * 0.8,
-            height: 50,
-            color: Colors.black,
-            child: Center(
-              child: Text('Subscribe',style: TextStyle(color: Colors.white, fontSize: 18),),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 10),
+              width: MediaQuery.of(context).size.width * 0.8,
+              height: 50,
+              color: Colors.white,
+              child: Center(
+                child: Text('Become Our Friend!',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+              ),
             ),
-          ),
 
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 20),
-            width: MediaQuery.of(context).size.width * 0.4,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SvgPicture.asset('assets/face.svg'),
-                SvgPicture.asset('assets/insta.svg'),
-                SvgPicture.asset('assets/teitter.svg'),
-                SvgPicture.asset('assets/in.svg'),
-              ],
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 10),
+              width: MediaQuery.of(context).size.width * 0.8,
+              height: 50,
+              color: Colors.black,
+              child: Center(
+                child: Text('Subscribe',style: TextStyle(color: Colors.white, fontSize: 18),),
+              ),
             ),
-          )
-        ],
-      ),
-    );
-  }
 
-  _footer1(context){
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 20),
-      width: MediaQuery.of(context).size.width * 0.6,
-      child: Center(
-        child: Text('©2022 by The Barkley Pet Camp',style: TextStyle(fontSize: 13),),
-      ),
-    );
-  }
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 20),
+              width: MediaQuery.of(context).size.width * 0.4,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SvgPicture.asset('assets/face.svg'),
+                  SvgPicture.asset('assets/insta.svg'),
+                  SvgPicture.asset('assets/teitter.svg'),
+                  SvgPicture.asset('assets/in.svg'),
+                ],
+              ),
+            )
+          ],
+        ),
+      );
+    }
+
+    _footer1(context){
+      return Container(
+        margin: EdgeInsets.symmetric(vertical: 20),
+        width: MediaQuery.of(context).size.width * 0.6,
+        child: Center(
+          child: Text('©2022 by The Barkley Pet Camp',style: TextStyle(fontSize: 13),),
+        ),
+      );
+    }
 
 
   _drawer(context){
@@ -563,35 +594,102 @@ class Home extends StatelessWidget {
       child: ListView(
         children: [
           Container(
-            width: MediaQuery.of(context).size.width,
-            height: 50,
-            color: Colors.transparent,
-            child: Center(
-              child: Text('HOME'),
+            margin: EdgeInsets.symmetric(vertical: 20),
+            width: 60,
+            height: 60,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                fit: BoxFit.contain,
+                image: AssetImage('assets/logo.png')
+              )
             ),
           ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: 50,
-            color: Colors.transparent,
-            child: Center(
-              child: Text('ABOUT'),
+          Divider(indent: 50,endIndent: 50,color: Colors.black.withOpacity(0.5),),
+          GestureDetector(
+            onTap: (){
+              // Get.offAll(()=>Home());
+              homeController.resetValue();
+              homeController.listDrawerButtonCheck[0] = true;
+            },
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: 50,
+              color: Colors.transparent,
+              child: Center(
+                child: Text(
+                    'HOME',
+                  style: TextStyle(
+                    color: homeController.listDrawerButtonCheck[0] == true ? App.primery : Colors.black,
+                    fontWeight: homeController.listDrawerButtonCheck[0] == true ? FontWeight.bold : null
+                  ),
+                ),
+              ),
             ),
           ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: 50,
-            color: Colors.transparent,
-            child: Center(
-              child: Text('GALLERY'),
+          GestureDetector(
+            onTap: (){
+              homeController.resetValue();
+              homeController.listDrawerButtonCheck[1] = true;
+              Get.back();
+              Get.to(()=>About());
+            },
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: 50,
+              color: Colors.transparent,
+              child: Center(
+                child: Text(
+                  'ABOUT',
+                  style: TextStyle(
+                      color: homeController.listDrawerButtonCheck[1] == true ? App.primery : Colors.black,
+                      fontWeight: homeController.listDrawerButtonCheck[1] == true ? FontWeight.bold : null
+                  ),
+                ),
+              ),
             ),
           ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: 50,
-            color: Colors.transparent,
-            child: Center(
-              child: Text('CONTACT'),
+          GestureDetector(
+            onTap: (){
+              homeController.resetValue();
+              homeController.listDrawerButtonCheck[2] = true;
+              Get.back();
+              Get.to(()=>Gallery());
+            },
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: 50,
+              color: Colors.transparent,
+              child: Center(
+                child: Text(
+                  'GALLERY',
+                  style: TextStyle(
+                      color: homeController.listDrawerButtonCheck[2] == true ? App.primery : Colors.black,
+                      fontWeight: homeController.listDrawerButtonCheck[2] == true ? FontWeight.bold : null
+                  ),
+                ),
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: (){
+              homeController.resetValue();
+              homeController.listDrawerButtonCheck[3] = true;
+              Get.back();
+              Get.to(()=>Contact());
+            },
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: 50,
+              color: Colors.transparent,
+              child: Center(
+                child: Text(
+                  'CONTACT',
+                  style: TextStyle(
+                      color: homeController.listDrawerButtonCheck[3] == true ? App.primery : Colors.black,
+                      fontWeight: homeController.listDrawerButtonCheck[3] == true ? FontWeight.bold : null
+                  ),
+                ),
+              ),
             ),
           ),
         ],

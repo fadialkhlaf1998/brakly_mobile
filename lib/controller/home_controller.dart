@@ -1,16 +1,13 @@
+import 'dart:ffi';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:brakly_mobile/app_localization.dart';
 import 'package:brakly_mobile/controller/posts_list_controller.dart';
 import 'package:brakly_mobile/controller/product_info_controller.dart';
 import 'package:brakly_mobile/helper/api.dart';
-import 'package:brakly_mobile/helper/app.dart';
 import 'package:brakly_mobile/model/post.dart';
-import 'package:brakly_mobile/view/filter_list.dart';
 import 'package:brakly_mobile/view/no_internet.dart';
 import 'package:brakly_mobile/view/posts_list.dart';
 import 'package:brakly_mobile/view/product_info.dart';
-import 'package:brakly_mobile/view/product_list.dart';
 
 class HomeController extends GetxController {
   PostListController postListController = Get.put(PostListController());
@@ -27,8 +24,24 @@ class HomeController extends GetxController {
   List<Post> product = <Post>[];
   List<Post> brands = <Post>[];
   List<Post> category = <Post>[];
+  List<Post> gallery = <Post>[];
   Post? aboutHomePage ;
+  Post? aboutMainPage ;
+  RxList<bool> listDrawerButtonCheck =  List.filled(4, false).obs;
 
+  @override
+  void onInit(){
+    super.onInit();
+    // RxList<bool> listDrawerButtonCheck = List.filled(4, false).obs;
+    listDrawerButtonCheck[0] = true;
+
+  }
+
+  resetValue(){
+    for(int i = 0; i <  listDrawerButtonCheck.length; i++){
+      listDrawerButtonCheck[i] = false;
+    }
+  }
 
 
 

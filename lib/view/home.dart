@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:brakly_mobile/helper/store.dart';
 import 'package:brakly_mobile/view/about.dart';
 import 'package:brakly_mobile/view/contact.dart';
 import 'package:brakly_mobile/view/gallery.dart';
@@ -141,7 +142,11 @@ class Home extends StatelessWidget {
               Builder(
                 builder: (context)=>Center(
                   child: GestureDetector(
-                    onTap: () =>  Scaffold.of(context).openEndDrawer(),
+                    onTap: (){
+                      homeController.resetValue();
+                      homeController.listDrawerButtonCheck[0] = true;
+                      Scaffold.of(context).openEndDrawer();
+                    },
                     child: const Icon(Icons.menu,size: 35,),
                   ),
                 ),
@@ -273,9 +278,9 @@ class Home extends StatelessWidget {
                       homeController.service[index].title ?? "",
                       maxLines: 2,
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold,color: Colors.white),
+                      style: const TextStyle(fontSize: 22,fontWeight: FontWeight.bold,color: Colors.white),
                     ),
-                    SizedBox(height: 20,),
+                    const SizedBox(height: 20,),
                     Container(
                       width: 130,
                       height: 40,
@@ -287,7 +292,7 @@ class Home extends StatelessWidget {
                         child: Text('Book now',style: TextStyle(color: Colors.white, fontSize: 18,),),
                       ),
                     ),
-                    SizedBox(height: 30,),
+                    const SizedBox(height: 30,),
                   ],
                 ),
               ),
@@ -305,28 +310,28 @@ class Home extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height * 0.18,
           color: App.primery,
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Center(
             child: Text(
               homeController.aboutHomePage!.subTitle.toString(),
               textAlign: TextAlign.left,
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
             ),
           ),
         ),
-        Container(
+        SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height * 0.3,
           child: Image.network(homeController.aboutHomePage!.image ?? "", fit: BoxFit.cover,),
         ),
         Container(
           width: MediaQuery.of(context).size.width,
-          padding: EdgeInsets.symmetric(horizontal: 30,vertical: 40),
+          padding: const EdgeInsets.symmetric(horizontal: 30,vertical: 40),
           child: Center(
             child: Text(
               homeController.aboutHomePage!.stringDescription.toString(),
               textAlign: TextAlign.justify,
-              style: TextStyle(fontSize: 18),
+              style: const TextStyle(fontSize: 18),
             ),
           ),
         ),
@@ -340,7 +345,7 @@ class Home extends StatelessWidget {
       color: App.grey,
       child: Column(
         children: [
-           SizedBox(height: 20),
+           const SizedBox(height: 20),
           Text(
               'OUR PET\'S CHOICE',
             style: TextStyle(fontSize: 26,fontWeight: FontWeight.bold,color: App.primery),
@@ -400,7 +405,7 @@ class Home extends StatelessWidget {
                             child: Container(
                               color: Colors.transparent,
                               child: Center(
-                                child: Text('1', ),
+                                child: Text('1'),
                               ),
                             ),
                           ),
@@ -409,7 +414,7 @@ class Home extends StatelessWidget {
                             child: GestureDetector(
                               child: Container(
                                 color: Colors.transparent,
-                                child: Center(
+                                child: const Center(
                                   child: Icon(Icons.add),
                                 ),
                               ),
@@ -419,13 +424,21 @@ class Home extends StatelessWidget {
                       ),
 
                     ),
-                    SizedBox(height: 10),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.6,
-                      height: 50,
-                      color: Colors.black,
-                      child: Center(
-                        child: Text('Add to cart', style: TextStyle(color: Colors.white,fontSize: 17),),
+                    const SizedBox(height: 10),
+                    GestureDetector(
+                      onTap: () async {
+                        // Store.saveCart()
+                        // homeController.addToCart(index, 2);
+                         cartController.addToCart(homeController.product[index], 1, context);
+                        Get.to(()=>Cart());
+                      },
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        height: 50,
+                        color: Colors.black,
+                        child: Center(
+                          child: Text('Add to cart', style: TextStyle(color: Colors.white,fontSize: 17),),
+                        ),
                       ),
                     )
                   ],
@@ -598,16 +611,16 @@ class Home extends StatelessWidget {
             width: 60,
             height: 60,
             decoration: const BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.contain,
-                image: AssetImage('assets/logo.png')
-              )
+                image: DecorationImage(
+                    fit: BoxFit.contain,
+                    image: AssetImage('assets/logo.png')
+                )
             ),
           ),
           Divider(indent: 50,endIndent: 50,color: Colors.black.withOpacity(0.5),),
           GestureDetector(
             onTap: (){
-              // Get.offAll(()=>Home());
+              Get.offAll(()=>Home());
               homeController.resetValue();
               homeController.listDrawerButtonCheck[0] = true;
             },
@@ -617,10 +630,10 @@ class Home extends StatelessWidget {
               color: Colors.transparent,
               child: Center(
                 child: Text(
-                    'HOME',
+                  'HOME',
                   style: TextStyle(
-                    color: homeController.listDrawerButtonCheck[0] == true ? App.primery : Colors.black,
-                    fontWeight: homeController.listDrawerButtonCheck[0] == true ? FontWeight.bold : null
+                      color: homeController.listDrawerButtonCheck[0] == true ? App.primery : Colors.black,
+                      fontWeight: homeController.listDrawerButtonCheck[0] == true ? FontWeight.bold : null
                   ),
                 ),
               ),
@@ -628,10 +641,10 @@ class Home extends StatelessWidget {
           ),
           GestureDetector(
             onTap: (){
+              Get.back();
+              Get.to(()=>Cart());
               homeController.resetValue();
               homeController.listDrawerButtonCheck[1] = true;
-              Get.back();
-              Get.to(()=>About());
             },
             child: Container(
               width: MediaQuery.of(context).size.width,
@@ -639,7 +652,7 @@ class Home extends StatelessWidget {
               color: Colors.transparent,
               child: Center(
                 child: Text(
-                  'ABOUT',
+                  'CART',
                   style: TextStyle(
                       color: homeController.listDrawerButtonCheck[1] == true ? App.primery : Colors.black,
                       fontWeight: homeController.listDrawerButtonCheck[1] == true ? FontWeight.bold : null
@@ -653,7 +666,7 @@ class Home extends StatelessWidget {
               homeController.resetValue();
               homeController.listDrawerButtonCheck[2] = true;
               Get.back();
-              Get.to(()=>Gallery());
+              Get.to(()=>About());
             },
             child: Container(
               width: MediaQuery.of(context).size.width,
@@ -661,7 +674,7 @@ class Home extends StatelessWidget {
               color: Colors.transparent,
               child: Center(
                 child: Text(
-                  'GALLERY',
+                  'ABOUT',
                   style: TextStyle(
                       color: homeController.listDrawerButtonCheck[2] == true ? App.primery : Colors.black,
                       fontWeight: homeController.listDrawerButtonCheck[2] == true ? FontWeight.bold : null
@@ -675,6 +688,28 @@ class Home extends StatelessWidget {
               homeController.resetValue();
               homeController.listDrawerButtonCheck[3] = true;
               Get.back();
+              Get.to(()=>Gallery());
+            },
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: 50,
+              color: Colors.transparent,
+              child: Center(
+                child: Text(
+                  'GALLERY',
+                  style: TextStyle(
+                      color: homeController.listDrawerButtonCheck[3] == true ? App.primery : Colors.black,
+                      fontWeight: homeController.listDrawerButtonCheck[3] == true ? FontWeight.bold : null
+                  ),
+                ),
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: (){
+              homeController.resetValue();
+              homeController.listDrawerButtonCheck[4] = true;
+              Get.back();
               Get.to(()=>Contact());
             },
             child: Container(
@@ -685,8 +720,8 @@ class Home extends StatelessWidget {
                 child: Text(
                   'CONTACT',
                   style: TextStyle(
-                      color: homeController.listDrawerButtonCheck[3] == true ? App.primery : Colors.black,
-                      fontWeight: homeController.listDrawerButtonCheck[3] == true ? FontWeight.bold : null
+                      color: homeController.listDrawerButtonCheck[4] == true ? App.primery : Colors.black,
+                      fontWeight: homeController.listDrawerButtonCheck[4] == true ? FontWeight.bold : null
                   ),
                 ),
               ),

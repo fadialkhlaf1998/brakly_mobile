@@ -1,4 +1,6 @@
 import 'dart:ffi';
+import 'package:brakly_mobile/helper/store.dart';
+import 'package:brakly_mobile/model/line_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:brakly_mobile/controller/posts_list_controller.dart';
@@ -27,10 +29,11 @@ class HomeController extends GetxController {
   List<Post> gallery = <Post>[];
   Post? aboutHomePage ;
   Post? aboutMainPage ;
-  RxList<bool> listDrawerButtonCheck =  List.filled(4, false).obs;
+  RxList<bool> listDrawerButtonCheck =  List.filled(5, false).obs;
+  // List<LineItem> cart = <LineItem>[];
 
   @override
-  void onInit(){
+  void onInit()async {
     super.onInit();
     // RxList<bool> listDrawerButtonCheck = List.filled(4, false).obs;
     listDrawerButtonCheck[0] = true;
@@ -42,6 +45,14 @@ class HomeController extends GetxController {
       listDrawerButtonCheck[i] = false;
     }
   }
+
+  // addToCart(index, count)async{
+  //   cart = await Store.loadCart();
+  //   cart.add(LineItem(post: product[index], count: count, price: product[index].price.toString(), post_id: product[index].id));
+  //   print('cart length');
+  //   print(cart.length);
+  //   Store.saveCart(cart);
+  // }
 
 
 

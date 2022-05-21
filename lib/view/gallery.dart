@@ -1,6 +1,7 @@
 import 'package:brakly_mobile/controller/home_controller.dart';
 import 'package:brakly_mobile/helper/app.dart';
 import 'package:brakly_mobile/view/about.dart';
+import 'package:brakly_mobile/view/cart.dart';
 import 'package:brakly_mobile/view/contact.dart';
 import 'package:brakly_mobile/view/home.dart';
 import 'package:brakly_mobile/view/image_show.dart';
@@ -17,46 +18,48 @@ class Gallery extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      persistentFooterButtons: [
-        GestureDetector(
-          onTap: (){
+    return Obx((){
+      return Scaffold(
+        persistentFooterButtons: [
+          GestureDetector(
+            onTap: (){
 
-          },
-          child: Container(
-            color: Colors.transparent,
-            width: MediaQuery.of(context).size.width,
-            height: 50,
-            child: Center(
-                child: Column(
-                  children: const [
-                    Icon(Icons.chat,size: 30),
-                    Text('Chat'),
-                  ],
-                )
+            },
+            child: Container(
+              color: Colors.transparent,
+              width: MediaQuery.of(context).size.width,
+              height: 50,
+              child: Center(
+                  child: Column(
+                    children: const [
+                      Icon(Icons.chat,size: 30),
+                      Text('Chat'),
+                    ],
+                  )
+              ),
+            ),
+          ),
+        ],
+        endDrawer: _drawer(context),
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                children: [
+                  const SizedBox(height: 25),
+                  _header(context),
+                  const SizedBox(height: 25),
+                  _body(context),
+                  _footer(context),
+                  _footer1(context)
+                ],
+              ),
             ),
           ),
         ),
-      ],
-      endDrawer: _drawer(context),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            child: Column(
-              children: [
-                const SizedBox(height: 25),
-                _header(context),
-                const SizedBox(height: 25),
-                _body(context),
-                _footer(context),
-                _footer1(context)
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
+      );
+    });
   }
 
   _header(context){
@@ -315,7 +318,7 @@ class Gallery extends StatelessWidget {
           Divider(indent: 50,endIndent: 50,color: Colors.black.withOpacity(0.5),),
           GestureDetector(
             onTap: (){
-
+              Get.offAll(()=>Home());
               homeController.resetValue();
               homeController.listDrawerButtonCheck[0] = true;
             },
@@ -336,10 +339,9 @@ class Gallery extends StatelessWidget {
           ),
           GestureDetector(
             onTap: (){
+              Get.off(()=>Cart());
               homeController.resetValue();
               homeController.listDrawerButtonCheck[1] = true;
-              Get.back();
-              Get.to(()=>About());
             },
             child: Container(
               width: MediaQuery.of(context).size.width,
@@ -347,7 +349,7 @@ class Gallery extends StatelessWidget {
               color: Colors.transparent,
               child: Center(
                 child: Text(
-                  'ABOUT',
+                  'CART',
                   style: TextStyle(
                       color: homeController.listDrawerButtonCheck[1] == true ? App.primery : Colors.black,
                       fontWeight: homeController.listDrawerButtonCheck[1] == true ? FontWeight.bold : null
@@ -361,7 +363,7 @@ class Gallery extends StatelessWidget {
               homeController.resetValue();
               homeController.listDrawerButtonCheck[2] = true;
               Get.back();
-
+              Get.off(()=>About());
             },
             child: Container(
               width: MediaQuery.of(context).size.width,
@@ -369,7 +371,7 @@ class Gallery extends StatelessWidget {
               color: Colors.transparent,
               child: Center(
                 child: Text(
-                  'GALLERY',
+                  'ABOUT',
                   style: TextStyle(
                       color: homeController.listDrawerButtonCheck[2] == true ? App.primery : Colors.black,
                       fontWeight: homeController.listDrawerButtonCheck[2] == true ? FontWeight.bold : null
@@ -383,7 +385,29 @@ class Gallery extends StatelessWidget {
               homeController.resetValue();
               homeController.listDrawerButtonCheck[3] = true;
               Get.back();
-              Get.to(()=>Contact());
+              Get.off(()=>Gallery());
+            },
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: 50,
+              color: Colors.transparent,
+              child: Center(
+                child: Text(
+                  'GALLERY',
+                  style: TextStyle(
+                      color: homeController.listDrawerButtonCheck[3] == true ? App.primery : Colors.black,
+                      fontWeight: homeController.listDrawerButtonCheck[3] == true ? FontWeight.bold : null
+                  ),
+                ),
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: (){
+              homeController.resetValue();
+              homeController.listDrawerButtonCheck[4] = true;
+              Get.back();
+              Get.off(()=>Contact());
             },
             child: Container(
               width: MediaQuery.of(context).size.width,
@@ -393,8 +417,8 @@ class Gallery extends StatelessWidget {
                 child: Text(
                   'CONTACT',
                   style: TextStyle(
-                      color: homeController.listDrawerButtonCheck[3] == true ? App.primery : Colors.black,
-                      fontWeight: homeController.listDrawerButtonCheck[3] == true ? FontWeight.bold : null
+                      color: homeController.listDrawerButtonCheck[4] == true ? App.primery : Colors.black,
+                      fontWeight: homeController.listDrawerButtonCheck[4] == true ? FontWeight.bold : null
                   ),
                 ),
               ),

@@ -1,4 +1,5 @@
 import 'package:brakly_mobile/helper/app.dart';
+import 'package:brakly_mobile/view/cart.dart';
 import 'package:brakly_mobile/view/contact.dart';
 import 'package:brakly_mobile/view/gallery.dart';
 import 'package:brakly_mobile/view/home.dart';
@@ -327,7 +328,7 @@ class About extends StatelessWidget {
           Divider(indent: 50,endIndent: 50,color: Colors.black.withOpacity(0.5),),
           GestureDetector(
             onTap: (){
-              Get.offAll(()=> Home());
+              Get.offAll(()=>Home());
               homeController.resetValue();
               homeController.listDrawerButtonCheck[0] = true;
             },
@@ -348,10 +349,9 @@ class About extends StatelessWidget {
           ),
           GestureDetector(
             onTap: (){
+              Get.off(()=>Cart());
               homeController.resetValue();
               homeController.listDrawerButtonCheck[1] = true;
-              Get.back();
-              Get.to(()=>About());
             },
             child: Container(
               width: MediaQuery.of(context).size.width,
@@ -359,7 +359,7 @@ class About extends StatelessWidget {
               color: Colors.transparent,
               child: Center(
                 child: Text(
-                  'ABOUT',
+                  'CART',
                   style: TextStyle(
                       color: homeController.listDrawerButtonCheck[1] == true ? App.primery : Colors.black,
                       fontWeight: homeController.listDrawerButtonCheck[1] == true ? FontWeight.bold : null
@@ -373,7 +373,7 @@ class About extends StatelessWidget {
               homeController.resetValue();
               homeController.listDrawerButtonCheck[2] = true;
               Get.back();
-              Get.to(()=>Gallery());
+              Get.off(()=>About());
             },
             child: Container(
               width: MediaQuery.of(context).size.width,
@@ -381,7 +381,7 @@ class About extends StatelessWidget {
               color: Colors.transparent,
               child: Center(
                 child: Text(
-                  'GALLERY',
+                  'ABOUT',
                   style: TextStyle(
                       color: homeController.listDrawerButtonCheck[2] == true ? App.primery : Colors.black,
                       fontWeight: homeController.listDrawerButtonCheck[2] == true ? FontWeight.bold : null
@@ -395,7 +395,29 @@ class About extends StatelessWidget {
               homeController.resetValue();
               homeController.listDrawerButtonCheck[3] = true;
               Get.back();
-              Get.to(()=>Contact());
+              Get.off(()=>Gallery());
+            },
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: 50,
+              color: Colors.transparent,
+              child: Center(
+                child: Text(
+                  'GALLERY',
+                  style: TextStyle(
+                      color: homeController.listDrawerButtonCheck[3] == true ? App.primery : Colors.black,
+                      fontWeight: homeController.listDrawerButtonCheck[3] == true ? FontWeight.bold : null
+                  ),
+                ),
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: (){
+              homeController.resetValue();
+              homeController.listDrawerButtonCheck[4] = true;
+              Get.back();
+              Get.off(()=>Contact());
             },
             child: Container(
               width: MediaQuery.of(context).size.width,
@@ -405,8 +427,8 @@ class About extends StatelessWidget {
                 child: Text(
                   'CONTACT',
                   style: TextStyle(
-                      color: homeController.listDrawerButtonCheck[3] == true ? App.primery : Colors.black,
-                      fontWeight: homeController.listDrawerButtonCheck[3] == true ? FontWeight.bold : null
+                      color: homeController.listDrawerButtonCheck[4] == true ? App.primery : Colors.black,
+                      fontWeight: homeController.listDrawerButtonCheck[4] == true ? FontWeight.bold : null
                   ),
                 ),
               ),

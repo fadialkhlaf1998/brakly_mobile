@@ -18,6 +18,10 @@ class CartController extends GetxController {
   Rx<bool> fake = false.obs;
   Rx<bool> loading = false.obs;
 
+  RxBool openPromoCode = false.obs;
+  RxBool openNote = false.obs;
+
+
   TextEditingController discountCode = TextEditingController();
 
   bool addToCart(Post post, int count, BuildContext context) {
@@ -27,8 +31,8 @@ class CartController extends GetxController {
         for (int i = 0; i < cart.length; i++) {
           if (cart[i].post.id == post.id) {
             cart[i].count = count + oldCount;
-            cart[i].price =
-                post.price!.toString() + " X " + cart[i].count.toString();
+            // cart[i].price =
+            //     post.price!.toString() + " X " + cart[i].count.toString();
             break;
           }
         }
@@ -46,7 +50,7 @@ class CartController extends GetxController {
         cart.add(LineItem(
             post: post,
             count: count,
-            price: post.price!.toString() + " X " + count.toString(),
+            price: post.price!.toString() ,//+ " X " + count.toString(),
             post_id: post.id));
         saveCart();
         App.sucss_msg(
@@ -68,6 +72,7 @@ class CartController extends GetxController {
   int checkInCart(Post post) {
     for (int i = 0; i < cart.length; i++) {
       if (cart[i].post.id == post.id) {
+        print('in cart');
         return cart[i].count;
       }
     }
@@ -80,8 +85,8 @@ class CartController extends GetxController {
       for (int i = 0; i < cart.length; i++) {
         if (cart[i].post.id == post.id) {
           cart[i].count = count + oldCount;
-          cart[i].price =
-              post.price!.toString() + " X " + cart[i].count.toString();
+          // cart[i].price =
+          //     post.price!.toString() + " X " + cart[i].count.toString();
           print(cart[i].price);
           break;
         }
@@ -99,8 +104,8 @@ class CartController extends GetxController {
       for (int i = 0; i < cart.length; i++) {
         if (cart[i].post.id == post.id) {
           cart[i].count = count + oldCount;
-          cart[i].price =
-              post.price!.toString() + " X " + cart[i].count.toString();
+          // cart[i].price =
+          //     post.price!.toString() + " X " + cart[i].count.toString();
           print(cart[i].price);
           break;
         }
